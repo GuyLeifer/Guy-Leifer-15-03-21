@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Ranchers&display=swap');
+
+#navbar {
+    position: sticky;
+    top: 0;
+    font-family: 'Ranchers', cursive;
+    cursor: pointer;
+}
+
+#main-navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-image: linear-gradient(to bottom right, rgb(204, 19, 87), rgb(226, 97, 177));
+    /* background-color: rgb(223, 32, 102); */
+    height: 10%;
+    font-size: 200%;
+}
+
+#purchase-bar {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.selected {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#items-bar {
+    padding: 2%;
+    display: flex;
+    justify-content: space-around;
+    height: 10%;
+    font-size: 150%;
+    background-color: rgb(91, 91, 91);
+    color: rgb(223, 32, 102);
+}
