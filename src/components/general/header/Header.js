@@ -1,10 +1,10 @@
-import React from 'react'
+import './Header.css';
 
 function Header() {
     return (
-        <div>
-
-        </div>
+        <header>
+            <h1>Shopping Tracking List</h1>
+        </header>
     )
 }
 
