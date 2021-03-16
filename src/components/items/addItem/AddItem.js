@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { generateMockData } from '../mockdata/mockdata';
+import { generateMockData } from './mockdata/mockdata';
 
 // components
-import Products from './Products';
-import Loader from './Loader';
+import Products from './products/Products';
+import Loader from './loader/Loader';
 
 // recoil
 import { currencyState, currencyShekelState } from '../../../Atoms/currencyState';
@@ -91,15 +91,15 @@ export default function AddItem({ add, setAdd }) {
         setPicture(product.image)
     }
 
-    // const addMockData = () => {
+    const addMockData = () => {
 
-    //     const mockdata = generateMockData();
-    //     setItems(mockdata);
-    //     setDeliveryItems(mockdata.filter(item => item.deliveryEstimate > new Date()));
-    //     setArchiveItems(mockdata.filter(item => item.deliveryEstimate < new Date()));
+        const mockdata = generateMockData();
+        setItems(mockdata);
+        setDeliveryItems(mockdata.filter(item => item.deliveryEstimate > new Date()));
+        setArchiveItems(mockdata.filter(item => item.deliveryEstimate < new Date()));
 
-    //     setAdd(false)
-    // }
+        setAdd(false)
+    }
 
     return (
         <div>
@@ -177,9 +177,9 @@ export default function AddItem({ add, setAdd }) {
                     {error}
                 </DialogContentText>
                 <DialogActions>
-                    {/* <Button onClick={addMockData} color="primary">
+                    <Button onClick={addMockData} color="primary">
                         Add Mock Data
-                    </Button> */}
+                    </Button>
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
