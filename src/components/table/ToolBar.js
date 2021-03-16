@@ -3,7 +3,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import AddItem from '../items/AddItem';
+import AddItem from '../items/addItem/AddItem';
 
 // recoil
 import { autoFilterState, itemsState, archiveItemsState, deliveryItemsState } from '../../Atoms/itemsState';
