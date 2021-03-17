@@ -17,7 +17,7 @@ function Tablehead(props) {
         type === 'Store' ?
             [
                 { id: 'store', numeric: false, disablePadding: false, label: 'Store' },
-                { id: 'quentity', numeric: false, disablePadding: false, label: 'Quentity' },
+                { id: 'quantity', numeric: false, disablePadding: false, label: 'Quantity' },
                 { id: 'price', numeric: true, disablePadding: false, label: 'Price' },
             ]
             : [
