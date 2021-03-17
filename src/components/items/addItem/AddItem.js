@@ -6,10 +6,8 @@ import { generateMockData } from './mockdata/mockdata';
 import Products from './products/Products';
 import Loader from './loader/Loader';
 
-// recoil
-import { currencyState, currencyShekelState } from '../../../Atoms/currencyState';
-import { itemsState, archiveItemsState, deliveryItemsState } from '../../../Atoms/itemsState';
-import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil';
+// redux
+import { useSelector, useDispatch } from 'react-redux';
 
 // material-ui
 import Button from '@material-ui/core/Button';
@@ -33,11 +31,17 @@ export default function AddItem({ add, setAdd }) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    const currency = useRecoilValue(currencyState);
-    const currencyShekel = useRecoilValue(currencyShekelState);
-    const [items, setItems] = useRecoilState(itemsState);
-    const setArchiveItems = useSetRecoilState(archiveItemsState);
-    const setDeliveryItems = useSetRecoilState(deliveryItemsState);
+    // const [items, setItems] = useRecoilState(itemsState);
+    // const setArchiveItems = useSetRecoilState(archiveItemsState);
+    // const setDeliveryItems = useSetRecoilState(deliveryItemsState);
+
+    // redux states
+    const currency = useSelector(state => state.currency);
+    const currencyShekel = useSelector(state => state.currencyShekel);
+    const items = useSelector(state => state.items);
+    const deliveryItems = useSelector(state => state.deliveryItems);
+    const archiveItems = useSelector(state => state.archiveItems);
+    const dispatch = useDispatch();
 
     useEffect(() =>
         (async () => {
@@ -65,11 +69,11 @@ export default function AddItem({ add, setAdd }) {
             const index = items.findIndex(item => item.id === counterId);
             if (index === -1) id = counterId;
             const item = { id, name, store, price: Number(price), deliveryEstimate: date, picture }
-            setItems(prev => [...prev, item])
+            dispatch({ type: "setItems", payload: { value: [...items, item] } })
             if (new Date() > date) {
-                setArchiveItems(prev => [...prev, item])
+                dispatch({ type: "setArchiveItems", payload: { value: [...archiveItems, item] } })
             } else {
-                setDeliveryItems(prev => [...prev, item])
+                dispatch({ type: "setDeliveryItems", payload: { value: [...deliveryItems, item] } })
             }
             setAdd(false)
         }
@@ -91,12 +95,10 @@ export default function AddItem({ add, setAdd }) {
     }
 
     const addMockData = () => {
-
         const mockdata = generateMockData();
-        setItems(mockdata);
-        setDeliveryItems(mockdata.filter(item => item.deliveryEstimate > new Date()));
-        setArchiveItems(mockdata.filter(item => item.deliveryEstimate < new Date()));
-
+        dispatch({ type: "setItems", payload: { value: [...items, ...mockdata] } })
+        dispatch({ type: "setDeliveryItems", payload: { value: [...deliveryItems, ...mockdata.filter(item => item.deliveryEstimate > new Date())] } })
+        dispatch({ type: "setArchiveItems", payload: { value: [...archiveItems, ...mockdata.filter(item => item.deliveryEstimate < new Date())] } })
         setAdd(false)
     }
 

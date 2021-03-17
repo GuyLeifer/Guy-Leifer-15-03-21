@@ -1,15 +1,14 @@
 import TableMain from '../table/TableMain';
 
-import { itemsState, autoFilterState, deliveryItemsState } from '../../Atoms/itemsState';
-import { useRecoilValue } from "recoil";
+// redux
+import { useSelector } from 'react-redux';
 
 function Delivery() {
 
-    const items = useRecoilValue(itemsState)
-    const autoFilter = useRecoilValue(autoFilterState)
-    const autoFilterItems = items.filter(item => item.deliveryEstimate > new Date())
-
-    const deliveryItems = useRecoilValue(deliveryItemsState)
+    const items = useSelector(state => state.items);
+    const autoFilter = useSelector(state => state.autoFilter);
+    const autoFilterItems = items.filter(item => item.deliveryEstimate > new Date());
+    const deliveryItems = useSelector(state => state.deliveryItems);
 
     return (
         <div>

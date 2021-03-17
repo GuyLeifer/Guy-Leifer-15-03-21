@@ -2,7 +2,9 @@ import './App.css';
 
 //packages
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { RecoilRoot } from "recoil";
+import { Provider } from "react-redux";
+import store from './Redux';
+
 
 //components
 import Navbar from './components/navbar/Navbar';
@@ -16,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <RecoilRoot>
+      <Provider store={store}>
         <Router>
           <Navbar />
           <Header />
@@ -27,7 +29,7 @@ function App() {
           </Switch>
           <Footer />
         </Router>
-      </RecoilRoot>
+      </Provider>
     </div>
   );
 }

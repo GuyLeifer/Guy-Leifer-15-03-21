@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import AddItem from '../items/addItem/AddItem';
+import { deleteItems } from './helpers';
 
-// recoil
-import { autoFilterState, itemsState, archiveItemsState, deliveryItemsState } from '../../Atoms/itemsState';
-import { useSetRecoilState, useRecoilState } from "recoil";
+// redux
+import { useSelector, useDispatch } from 'react-redux';
 
 // material-ui
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -46,30 +46,12 @@ function ToolBar(props) {
     const [add, setAdd] = useState(false);
     const classes = useToolbarStyles();
     const { numSelected, type, selected, setSelected } = props;
-    const setAutoFilter = useSetRecoilState(autoFilterState);
 
-    const [items, setItems] = useRecoilState(itemsState)
-    const [archiveItems, setArchiveItems] = useRecoilState(archiveItemsState)
-    const [deliveryItems, setDeliveryItems] = useRecoilState(deliveryItemsState)
-
-    const deleteItems = () => {
-        if (type === 'Store') {
-            const filteredItems = items.filter(item => !selected.includes(item.store))
-            setItems(filteredItems)
-            const filterdDelivery = deliveryItems.filter(item => !selected.includes(item.store))
-            setDeliveryItems(filterdDelivery)
-            const filteredArchive = archiveItems.filter(item => !selected.includes(item.store))
-            setArchiveItems(filteredArchive)
-        } else {
-            const filteredItems = items.filter(item => !selected.includes(item.id))
-            setItems(filteredItems)
-            const filterdDelivery = deliveryItems.filter(item => !selected.includes(item.id))
-            setDeliveryItems(filterdDelivery)
-            const filteredArchive = archiveItems.filter(item => !selected.includes(item.id))
-            setArchiveItems(filteredArchive)
-        }
-        setSelected([])
-    }
+    // redux states
+    const items = useSelector(state => state.items);
+    const archiveItems = useSelector(state => state.archiveItems);
+    const deliveryItems = useSelector(state => state.deliveryItems);
+    const dispatch = useDispatch();
 
     return (
         <Toolbar
@@ -88,7 +70,7 @@ function ToolBar(props) {
                 )}
 
             {numSelected > 0 ? (
-                <Tooltip title="Delete" onClick={() => deleteItems()}>
+                <Tooltip title="Delete" onClick={() => deleteItems(type, dispatch, items, deliveryItems, archiveItems, selected, setSelected)}>
                     <IconButton aria-label="delete">
                         <DeleteIcon />
                     </IconButton>
@@ -100,7 +82,7 @@ function ToolBar(props) {
                             <AddIcon />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="Auto Filter" onClick={() => setAutoFilter(prev => !prev)}>
+                    <Tooltip title="Auto Filter" onClick={() => dispatch({ type: "setAutoFilter" })}>
                         <IconButton aria-label="Auto Filter">
                             <FilterListIcon />
                         </IconButton>

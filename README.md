@@ -3,7 +3,7 @@
 This is a repository of a Shopping Track List service.  
 The service offers a tracking app of online items the client has been bought.  
 This app is React App styled by pure CSS and use "material-ui" for table structure.  
-The app also use a state management - "recoil", and routers - "react-router-dom". 
+The app also use a state management - "redux", and routers - "react-router-dom". 
 The app also is react hooks as well.  
 
 ## App

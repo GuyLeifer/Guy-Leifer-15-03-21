@@ -1,15 +1,14 @@
 import TableMain from '../table/TableMain';
 
-import { itemsState, autoFilterState, archiveItemsState } from '../../Atoms/itemsState';
-import { useRecoilValue } from "recoil";
+// redux
+import { useSelector } from 'react-redux';
 
 function Archive() {
 
-    const items = useRecoilValue(itemsState)
-    const autoFilter = useRecoilValue(autoFilterState)
-    const autoFilterItems = items.filter(item => item.deliveryEstimate < new Date())
-
-    const archiveItems = useRecoilValue(archiveItemsState)
+    const items = useSelector(state => state.items);
+    const autoFilter = useSelector(state => state.autoFilter);
+    const autoFilterItems = items.filter(item => item.deliveryEstimate < new Date());
+    const archiveItems = useSelector(state => state.archiveItems);
 
     return (
         <div>

@@ -5,9 +5,8 @@ import Tablehead from './Tablehead';
 import ToolBar from './ToolBar';
 import Tablebody from './Tablebody';
 
-// recoil
-import { useRecoilState } from 'recoil';
-import { deliveryItemsState, archiveItemsState } from '../../Atoms/itemsState';
+// redux
+import { useSelector, useDispatch } from 'react-redux';
 
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
@@ -47,14 +46,15 @@ export default function TableMain({ type, items, autoFilter }) {
 
     const rows = items;
 
-    // recoil states
-    const [archiveItems, setArchiveItems] = useRecoilState(archiveItemsState);
-    const [deliveryItems, setDeliveryItems] = useRecoilState(deliveryItemsState);
+    // redux states
+    const archiveItems = useSelector(state => state.archiveItems);
+    const deliveryItems = useSelector(state => state.deliveryItems);
+    const dispatch = useDispatch();
 
     const classes = useStyles();
 
     const [order, setOrder] = useState('asc');
-    const [orderBy, setOrderBy] = useState('deliveryEstimate');
+    const [orderBy, setOrderBy] = useState(type === 'Store' ? 'price' : ' deliveryEstimate');
     const [selected, setSelected] = useState([]);
     const [page, setPage] = useState(0);
     const [dense, setDense] = useState(false);
@@ -96,14 +96,40 @@ export default function TableMain({ type, items, autoFilter }) {
     };
 
     const handleArchiveClick = (row) => {
-        const filterdDelivery = deliveryItems.filter(item => item.name !== row.name);
-        setDeliveryItems(filterdDelivery);
-        setArchiveItems(prev => [...prev, row])
+        dispatch(
+            {
+                type: "setDeliveryItems",
+                payload: {
+                    value: deliveryItems.filter(item => item.name !== row.name)
+                }
+            }
+        )
+        dispatch(
+            {
+                type: "setArchiveItems",
+                payload: {
+                    value: [...archiveItems, row]
+                }
+            }
+        )
     }
     const handleDeliveryClick = (row) => {
-        const filteredArchive = archiveItems.filter(item => item.name !== row.name);
-        setArchiveItems(filteredArchive);
-        setDeliveryItems(prev => [...prev, row])
+        dispatch(
+            {
+                type: "setArchiveItems",
+                payload: {
+                    value: archiveItems.filter(item => item.name !== row.name)
+                }
+            }
+        )
+        dispatch(
+            {
+                type: "setDeliveryItems",
+                payload: {
+                    value: [...deliveryItems, row]
+                }
+            }
+        )
     }
 
     const handleChangePage = (event, newPage) => {

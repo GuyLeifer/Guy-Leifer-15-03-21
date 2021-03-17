@@ -5,17 +5,16 @@ import TableRow from '@material-ui/core/TableRow';
 import { getComparator, stableSort } from './helpers';
 import Tablerow from './Tablerow';
 
-// recoil
-import { useRecoilValue } from 'recoil';
-import { currencyState, currencyShekelState } from '../../Atoms/currencyState';
+// redux
+import { useSelector } from 'react-redux';
 
 function Tablebody(props) {
 
     const { rows, order, orderBy, rowsPerPage, page, isSelected, handleClick, emptyRows, dense, type, autoFilter, handleArchiveClick, handleDeliveryClick } = props;
 
-    // recoil states
-    const currency = useRecoilValue(currencyState);
-    const currencyShekel = useRecoilValue(currencyShekelState);
+    // redux states
+    const currency = useSelector(state => state.currency);
+    const currencyShekel = useSelector(state => state.currencyShekel);
 
     let counterPrice = 0;
     rows.forEach(row => counterPrice += row.price);
@@ -30,6 +29,7 @@ function Tablebody(props) {
 
                     return (
                         <Tablerow
+                            key={type === 'Store' ? row.store : row.id}
                             row={row}
                             isItemSelected={isItemSelected}
                             type={type}

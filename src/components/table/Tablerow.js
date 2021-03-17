@@ -11,15 +11,14 @@ import IconButton from '@material-ui/core/IconButton';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import RedoIcon from '@material-ui/icons/Redo';
 
-// recoil
-import { useRecoilValue } from 'recoil';
-import { currencyState, currencyShekelState } from '../../Atoms/currencyState';
+// redux
+import { useSelector } from 'react-redux';;
 
 function Tablerow(props) {
 
-    // recoil states
-    const currency = useRecoilValue(currencyState);
-    const currencyShekel = useRecoilValue(currencyShekelState);
+    // redux states
+    const currency = useSelector(state => state.currency);
+    const currencyShekel = useSelector(state => state.currencyShekel);
 
     const [open, setOpen] = useState(false);
     const [delayHandler, setDelayHandler] = useState()
@@ -61,7 +60,7 @@ function Tablerow(props) {
                         <TableCell component="th" id={labelId} scope="row" padding="none">
                             {row.store}
                         </TableCell>
-                        <TableCell align="left">{row.quentity}</TableCell>
+                        <TableCell align="left">{row.quantity}</TableCell>
                         <TableCell align="right">
                             {currency === '$' ?
                                 row.price.toFixed(2) + '$'

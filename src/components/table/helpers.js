@@ -23,3 +23,58 @@ export function stableSort(array, comparator) {
     });
     return stabilizedThis.map((el) => el[0]);
 }
+
+export const deleteItems = (type, dispatch, items, deliveryItems, archiveItems, selected, setSelected) => {
+    if (type === 'Store') {
+        dispatch(
+            {
+                type: "setItems",
+                payload: {
+                    value: items.filter(item => !selected.includes(item.store))
+                }
+            }
+        )
+        dispatch(
+            {
+                type: "setDeliveryItems",
+                payload: {
+                    value: deliveryItems.filter(item => !selected.includes(item.store))
+                }
+            }
+        )
+        dispatch(
+            {
+                type: "setArchiveItems",
+                payload: {
+                    value: archiveItems.filter(item => !selected.includes(item.store))
+                }
+            }
+        )
+    } else {
+        dispatch(
+            {
+                type: "setItems",
+                payload: {
+                    value: items.filter(item => !selected.includes(item.id))
+                }
+            }
+        )
+        dispatch(
+            {
+                type: "setDeliveryItems",
+                payload: {
+                    value: deliveryItems.filter(item => !selected.includes(item.id))
+                }
+            }
+        )
+        dispatch(
+            {
+                type: "setArchiveItems",
+                payload: {
+                    value: archiveItems.filter(item => !selected.includes(item.id))
+                }
+            }
+        )
+    }
+    setSelected([])
+}

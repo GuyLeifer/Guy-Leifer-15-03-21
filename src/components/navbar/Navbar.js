@@ -4,8 +4,8 @@ import './Navbar.css';
 
 import axios from 'axios';
 
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { currencyState, currencyShekelState } from '../../Atoms/currencyState';
+// redux
+import { useSelector, useDispatch } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -24,8 +24,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar() {
 
-    const setCurrencyShekelState = useSetRecoilState(currencyShekelState);
-    const [currency, setCurrency] = useRecoilState(currencyState);
+    const currency = useSelector(state => state.currency);
+    const dispatch = useDispatch()
+
     const [selected, setSelected] = useState(true);
     const [selectedByItem, setSelectedByItem] = useState(true);
     const [error, setError] = useState(true);
@@ -40,14 +41,20 @@ function Navbar() {
             setInterval(() => {
                 fetchCurrency()
             }, 10000);
-
         })(), []);
 
     const fetchCurrency = async () => {
         try {
             const { data } = await axios.get("https://api.exchangeratesapi.io/latest");
             const currentCurrency = data.rates.ILS / data.rates.USD;
-            setCurrencyShekelState(currentCurrency);
+            dispatch(
+                {
+                    type: "setNewShekel",
+                    payload: {
+                        value: currentCurrency
+                    }
+                }
+            )
             setError();
         } catch (err) {
             setError(err.message);
@@ -55,8 +62,16 @@ function Navbar() {
     }
 
     const handleChange = useCallback((event) => {
-        setCurrency(event.target.value)
+        dispatch(
+            {
+                type: event.target.value,
+                payload: {
+                    value: event.target.value
+                }
+            }
+        )
     }, [currency])
+
 
     const handleClick = (target) => {
         history.push(target)
