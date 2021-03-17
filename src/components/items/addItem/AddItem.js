@@ -78,7 +78,6 @@ export default function AddItem({ add, setAdd }) {
     const setPriceInDollar = (value) => {
         if (currency !== "$") {
             const dollarValue = value / currencyShekel;
-            console.log("dollarValue")
             setPrice(dollarValue);
         } else {
             setPrice(value);
