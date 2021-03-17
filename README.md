@@ -9,7 +9,18 @@ The app also is react hooks as well.
 ## App
 https://shopping-tracking-list-herolo.web.app
 
-##
+## Main Goals
+The main goals of the assignment is control and perform skills of front-end development, by front-end development platform - in this case - React.  
+specifically, skills of router and state management control, and deep understanding and communication of this application or another.  
+
+## Project Structure
+The structure of the project implemented by 2 main routes, and 6 main states.    
+One of the routes divided to another 2 routes.  
+Every route use a sub component of table structure.  
+The table component itself contains 6 sub components.   
+There are three fixed components of navbar, header and footer.    
+
+## General
 the repository is a Front - End App with 2 main pages. 
 
 ## Instructions To Contribute Users
