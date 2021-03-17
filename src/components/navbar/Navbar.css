@@ -12,7 +12,6 @@
     justify-content: space-around;
     align-items: center;
     background-image: linear-gradient(to bottom right, rgb(204, 19, 87), rgb(226, 97, 177));
-    /* background-color: rgb(223, 32, 102); */
     height: 10%;
     font-size: 200%;
 }
@@ -21,6 +20,7 @@
     width: 50%;
     display: flex;
     justify-content: space-around;
+    font-size: calc(1vw + 1vh + 1vmin);
 }
 
 .selected {
@@ -29,19 +29,19 @@
 }
 
 #items-bar {
-    padding: 2%;
+    padding: 1%;
     display: flex;
     justify-content: space-around;
-    height: 10%;
-    font-size: 150%;
+    max-height: 10%;
+    font-size: calc(1vw + 1vh + 1vmin);
     background-color: rgb(91, 91, 91);
     color: rgb(223, 32, 102);
 }
 
 #error {
-    font-size: 50%;
+    font-size: calc(0.5vw + 0.5vh + 0.5vmin);
 }
 
-#dollar {
-    font-size: 100%;
-}
+/* #dollar {
+    font-size: calc(2vw + 2vh + 2vmin);
+} */
