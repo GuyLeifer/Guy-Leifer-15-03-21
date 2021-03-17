@@ -71,3 +71,8 @@ the repository is a Front - End App with 2 main pages.
     By clicking on it all of the system will automatically change the currency coin - updating every 10 seconds by public API that fetch this data.
 ![Currency](./images/currency.png "Currency")  
 
+## Pop Up Picture
+    On mouse over for 1.5 seconds, if you add a picture to the item, it will automatically appear in a Pop Up window.  
+    You can cancel it by clicking on the background window.
+![Pop Up](./images/popup.png "Pop Up")  
+
