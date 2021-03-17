@@ -10,7 +10,8 @@ function Products({ products, productSetter }) {
                 infinite
                 showArrows
                 showIndicator
-                slidesToShow={1}>
+                slidesToShow={1}
+            >
                 {products.map(product => {
                     return (
                         <Product key={product.id} product={product} productSetter={productSetter} />

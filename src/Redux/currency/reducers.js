@@ -1,10 +1,8 @@
 export function currencyReducer(state = '$', action) {
     switch (action.type) {
         case "$":
-            console.log("dollar")
             return action.payload.value;
         case "₪":
-            console.log("shekel")
             return action.payload.value;
         default:
             return state

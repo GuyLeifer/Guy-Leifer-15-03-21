@@ -26,10 +26,15 @@ function Tablerow(props) {
     const { row, isItemSelected, type, handleClick, labelId, autoFilter, handleArchiveClick, handleDeliveryClick } = props;
 
     const handleMouseEnter = event => {
-        if (row.picture)
+        if (row.picture) {
             setDelayHandler(setTimeout(() => {
                 setOpen(true)
             }, 1500))
+        } else if (type === 'Store') {
+            setDelayHandler(setTimeout(() => {
+                setOpen(true)
+            }, 1500))
+        }
     }
 
     const handleMouseLeave = () => {
@@ -106,7 +111,8 @@ function Tablerow(props) {
                         }
                     </>
                 }
-                {open && <Row row={row} open={open} setOpen={setOpen} />}
+                {open && type !== 'Store' && <Row row={row} open={open} setOpen={setOpen} type={type} />}
+                {open && type === 'Store' && <Row row={row} open={open} setOpen={setOpen} type={type} />}
             </TableRow>
         </>
     )
