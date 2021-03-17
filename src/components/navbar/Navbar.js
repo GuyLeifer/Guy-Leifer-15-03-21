@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import './Navbar.css';
 
@@ -28,30 +28,30 @@ function Navbar() {
     const [currency, setCurrency] = useRecoilState(currencyState);
     const [selected, setSelected] = useState(true);
     const [selectedByItem, setSelectedByItem] = useState(true);
+    const [error, setError] = useState(true);
     const classes = useStyles();
 
     const history = useHistory();
-    const items = useRef();
-    const store = useRef();
 
     useEffect(() =>
         (() => {
             history.push("/by-item/delivery");
             fetchCurrency();
             setInterval(() => {
-                try {
-                    fetchCurrency()
-                } catch (err) {
-                    console.log(err)
-                }
+                fetchCurrency()
             }, 10000);
 
         })(), []);
 
     const fetchCurrency = async () => {
-        const { data } = await axios.get("https://api.exchangeratesapi.io/latest");
-        const currentCurrency = data.rates.ILS / data.rates.USD
-        setCurrencyShekelState(currentCurrency)
+        try {
+            const { data } = await axios.get("https://api.exchangeratesapi.io/latest");
+            const currentCurrency = data.rates.ILS / data.rates.USD;
+            setCurrencyShekelState(currentCurrency);
+            setError();
+        } catch (err) {
+            setError(err.message);
+        }
     }
 
     const handleChange = useCallback((event) => {
@@ -81,28 +81,34 @@ function Navbar() {
             <div id="main-navbar">
                 {selected ?
                     <div id="purchase-bar">
-                        <div ref={items} className="selected" onClick={() => handleClick("/by-item/delivery")}>Purchase By Item</div>
-                        <div ref={store} onClick={() => handleClick("/by-store")}>Purchase By Stores</div>
+                        <div className="selected" onClick={() => handleClick("/by-item/delivery")}>Purchase By Item</div>
+                        <div onClick={() => handleClick("/by-store")}>Purchase By Stores</div>
                     </div>
                     :
                     <div id="purchase-bar">
-                        <div ref={items} onClick={() => handleClick("/by-item/delivery")}>Purchase By Item</div>
-                        <div ref={store} className="selected" onClick={() => handleClick("/by-store")}>Purchase By Stores</div>
+                        <div onClick={() => handleClick("/by-item/delivery")}>Purchase By Item</div>
+                        <div className="selected" onClick={() => handleClick("/by-store")}>Purchase By Stores</div>
                     </div>
                 }
-
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-label">Currency</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={currency}
-                        onChange={handleChange}
-                    >
-                        <MenuItem value={'$'}>$</MenuItem>
-                        <MenuItem value={'₪'}>₪</MenuItem>
-                    </Select>
-                </FormControl>
+                {error ?
+                    <div id="error">
+                        <div>Error Loading Currency</div>
+                        <div>Only <span id="dollar">$</span> Available</div>
+                    </div>
+                    :
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-label">Currency</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={currency}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={'$'}>$</MenuItem>
+                            <MenuItem value={'₪'}>₪</MenuItem>
+                        </Select>
+                    </FormControl>
+                }
             </div>
             {selected && (
                 selectedByItem ?

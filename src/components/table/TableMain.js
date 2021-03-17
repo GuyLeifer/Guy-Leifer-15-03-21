@@ -69,7 +69,6 @@ export default function TableMain({ type, items, autoFilter }) {
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
             const newSelecteds = rows.map((row) => row.hasOwnProperty('id') ? row.id : row.store);
-            console.log(newSelecteds)
             setSelected(newSelecteds);
             return;
         }
