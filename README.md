@@ -7,7 +7,9 @@ The app also use a state management - "redux", and routers - "react-router-dom".
 The app also is react hooks as well.  
 
 ## App
-https://shopping-tracking-list-herolo.web.app
+https://shopping-tracking-list-herolo.web.app  
+or  
+https://guyleifer.github.io/Guy-Leifer-15-03-21/
 
 ## Main Goals
 The main goals of the assignment is control and perform skills of front-end development, by front-end development platform - in this case - React.  
@@ -73,6 +75,7 @@ the repository is a Front - End App with 2 main pages.
 
 ## Pop Up Picture
     On mouse over for 1.5 seconds, if you add a picture to the item, it will automatically appear in a Pop Up window.  
+    In the purchase by store page, it will show a carousel with all the items of the store.  
     You can cancel it by clicking on the background window.
 ![Pop Up](./images/popup.png "Pop Up")  
 
