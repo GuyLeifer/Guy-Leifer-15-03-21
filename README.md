@@ -5,7 +5,10 @@ The service offers a tracking app of online items the client has been bought.
 This app is React App styled by pure CSS and use "material-ui" for table structure.  
 The app also use a state management - "recoil", and routers - "react-router-dom". 
 The app also is react hooks as well.  
-   
+
+## App
+https://shopping-tracking-list-herolo.web.app
+
 ##
 the repository is a Front - End App with 2 main pages. 
 
@@ -50,6 +53,7 @@ the repository is a Front - End App with 2 main pages.
     You can order the list By clicking on every head cell, and double click it will order it opposite as well.
 ![Store Page](./images/store.png "Store Page")  
 
+## Currency
     All the pages contain the total price of the items.  
     In the navbar you can choose your currency coin - Dollar($) or Shekel(₪).  
     This feature uses a state management ("recoil").  
