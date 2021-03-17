@@ -22,7 +22,7 @@ export default function AddItem({ add, setAdd }) {
 
     const [name, setName] = useState('');
     const [store, setStore] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState(0);
     const [picture, setPicture] = useState('');
     const [deliveryEstimate, setDeliveryEstimate] = useState('');
     const [products, setProducts] = useState([]);
@@ -60,8 +60,8 @@ export default function AddItem({ add, setAdd }) {
     };
 
     const handleSubmit = () => {
-        if (!name || !price || !store || !deliveryEstimate) {
-            setError("*** Please Fill All Fields ***")
+        if (!name || (!price && price !== 0) || !store || !deliveryEstimate) {
+            setError("*** Please Fill All The Required Fields ***")
         } else {
             const date = new Date(deliveryEstimate);
             let counterId = 1;
@@ -126,7 +126,7 @@ export default function AddItem({ add, setAdd }) {
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Item Name"
+                        label="Item Name **"
                         type="text"
                         fullWidth
                         onInput={e => setName(e.target.value)}
@@ -136,7 +136,7 @@ export default function AddItem({ add, setAdd }) {
                         autoFocus
                         margin="dense"
                         id="store"
-                        label="Store"
+                        label="Store **"
                         type="text"
                         fullWidth
                         onInput={e => setStore(e.target.value)}
@@ -145,7 +145,7 @@ export default function AddItem({ add, setAdd }) {
                         autoFocus
                         margin="dense"
                         id="price"
-                        label={`Price ${currency}`}
+                        label={`Price ${currency} **`}
                         type="number"
                         fullWidth
                         onInput={e => setPriceInDollar(e.target.value)}
@@ -165,7 +165,7 @@ export default function AddItem({ add, setAdd }) {
                     <TextField
                         autoFocus
                         id="estimateDate"
-                        label="Recive Date Estimation"
+                        label="Recive Date Estimation **"
                         type="date"
                         InputLabelProps={{
                             shrink: true,
